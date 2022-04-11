@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        // LAB 9 SOLUTION 1
+        class LinkedList
+        {
+            constructor(arr) { if (arr) arr.forEach(elem => this.add(elem)); }
+            add(element)
+            {
+                if (this.value === undefined)
+                {
+                    this.value = element;
+                    this.next = null;
+                }
+                else
+                {
+                    let current = this;
+                    while (current.next) 
+                        current = current.next;                    
+                    current.next = { value: element, next: null };
+                }
+            }
+            remove(element)
+            {
+                var current = this;
+                var prev = null;
+                while (current)
+                {
+                    if (current.value === element)
+                    {
+                        if (prev == null)
+                        {
+                            this.value = current.next.value;
+                            this.next = current.next.next;
+                        }
+                        else prev.next = current.next;                        
+                        return true;
+                    }
+                    prev = current;
+                    current = current.next;
+                }
+                return false;
+            }
+            printHelper(list, result)
+            {
+                if (list.next == null)
+                {
+                    result += list.value;
+                    return result;
+                }
+                result += list.value + ',';
+                return this.printHelper(list.next, result);
+            }
+            print()
+            {
+                let result = 'LinkedList{';
+                result = this.printHelper(this, result);
+                result += '}';
+                console.log(result);
+                setTimeout(function () { document.getElementById('one').innerHTML += '<br><br>The linked list is now ' + result; }, 111);
+            }
+        }
+        let linkedlist = new LinkedList();
+        linkedlist.add(1);
+        linkedlist.add(2);
+        linkedlist.add(3);
+        linkedlist.print(); 
+        linkedlist.remove(3);
+        linkedlist.print();
+    </script>
+</head>
+<body>
+    <span id="one">Lab 9 Solution 1<br></span>
+</body>
+</html>
